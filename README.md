@@ -114,15 +114,15 @@ mongo environment
    sudo vi /etc/fail2ban/jail.conf
    更改配置文件：{
      bantime: xxx <可以设置的大一些，如3600>
-			  destemail: xxx <设置为自己的邮箱>
-			  action = %(action_mv)s
-			  ssh: {
-				  enabled = true
-				  port = ssh
-				  filter = sshd
-				  logpath = /var/log/auth.log
-				  maxretry = 6
-			  }
+     destemail: xxx <设置为自己的邮箱>
+     action = %(action_mv)s
+     ssh: {
+       enabled = true
+       port = ssh
+       filter = sshd
+       logpath = /var/log/auth.log
+       maxretry = 6
+     }
    }
    sudo service fail2ban status <查看fail2ban有没有运行>
    sudo service fail2ban start <开启fail2ban>
@@ -175,6 +175,11 @@ mongo environment
 	proxy_redirect off;
       }
     }
+    cd ..
+    sudo config -t <查看配置文件是否有问题>
+    sudo vi nginx.conf
+    把server_tokens的注释拿掉
+    sudo nginx -s reload <重启nginx>
 ```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
