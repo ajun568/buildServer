@@ -149,6 +149,12 @@ mongo environment
    pm2 show file_name <查看该文件详情信息>
    pm2 logs <查看实时信息>
 ```
+* mongo搭建 **[先走这个教程上的流程](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)**
+```
+   sudo service mongod start/stop/restart <启动/停止/重启>
+   sudo vi /etc/mongod.conf <更改一个你需要的端口，使其更加安全>
+   mongo --port 改好的端口号
+```
 * Nginx 反向代理 负载均衡
 ```
    sudo apt-get update
@@ -181,5 +187,18 @@ mongo environment
     把server_tokens的注释拿掉
     sudo nginx -s reload <重启nginx>
 ```
+* 在DNSPod上进行域名解析，需在购买域名的网站进行实名验证后进行，在购买域名的网站点击更改DNS，粘贴DNSPod的DNS
+```
+   记录类型A：{
+     www: www.baidu.com
+     api: api.baidu.com 以此类推
+     @: baidu.com 直接解析顶级域名
+     *: 泛解析 xxx.baidu.com
+     记录值填IP
+
+     添加子域名来这去添加纪录 eg: picture.baidu.com 过程同上
+    }
+```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
+## 教程结束 致敬scott大神 scott大神让我对node充满了兴趣 [推荐scott大神写的一个手记](https://www.imooc.com/article/12703)
