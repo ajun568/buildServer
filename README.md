@@ -94,6 +94,10 @@ mongo environment
      -A FORWARD -j REJECT
 
      COMMIT
+   }
+   sudo iptables-restore < /etc/iptables.up.rules <将配置文件位置吐给服务器，每次更改防火墙后这步也要执行>
+   sudo ufw status <看防火墙有没有成功被建立起来>
+   没有： sudo ufw enable
 ```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
