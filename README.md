@@ -19,14 +19,15 @@ mongo environment
 
    > ssh-agent: 对解密的私钥进行高速缓存
    > ssh-add:   将用户使用的私钥添加到高速缓存的用户列表中
-   ```
+```
    打开git bash <本地git环境即可>
    mkdir .ssh
    ssh-keygen -t rsa -b 4096 -C "email" <email:填自己的邮箱 -> 新手将几个问题直接回车跳过即可，有兴趣自行查看资料进行配置>
    eval "$(ssh-agent -s)" <开启SSH代理>
    cd .ssh
    ssh-add ~/.ssh/id_rsa <添加专用密钥>
-   ```
+   cat id_rsa.pub <查看本地公钥>
+```
 * 打开putty,输入账号密码登录，首次登录默认用户名为root，密码为三种不同字符那个密码
 * 退出puTTy ^D **^代表ctrl，仅解释一遍**
 * 增加新用户并给用户升权 **用脚想也知道直接用root不安全对不对**
@@ -37,6 +38,13 @@ mongo environment
    在 root ALL=(ALL:ALL) ALL 下加一行 username ALL=(ALL:ALL) ALL <升级用户权限为root权限>
    按提示操作 ^X <退出>
    shift + Y <保存> 
+```
+* 服务器识别本机密钥 **再次提醒，不会vim操作的请跳转Linux链接进行查看，Linux在文档下方，同为中文文档**
+```
+   vi authorized_keys <授权公钥>
+   编辑 - >将获取的本地公钥右键自动粘贴到此 -> 退出保存
+   chmod 600 authorized_keys
+   sudo service ssh restart
 ```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
