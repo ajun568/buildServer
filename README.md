@@ -13,7 +13,7 @@ mongo environment
 * 购买域名和服务器(阿里云 学生认证后9.9/月) **本教程以阿里云Ubuntu 16.04 64位 学生版进行讲解 建议所有账号密码记下来，切勿忘记**
 * 未添加安全组前不能使用服务器，请先添加安全组
 * 配置所需项步骤：停止服务器 -> 更换系统盘 **友情提示：此操作会重置掉所有服务器之前部署内容，请谨慎操作**
-* 所有服务类配置更改后必须重启 **否则出现任何问题概不负责**
+* 所有服务类配置更改后必须重启 **否则出现任何问题概不负责，再次强调，每次对配置进行vi操作都要重启服务**
 * Linux基础命令不懂的，请跳转链接进行查看，本文对基础指令不做过多解释
 * 配置SSH **如已配置过SSH,勿重复配置，由此导致的之前仓库连接不上，后果自负 `.ssh文件夹`**
 
@@ -45,6 +45,25 @@ mongo environment
    编辑 - >将获取的本地公钥右键自动粘贴到此 -> 退出保存
    chmod 600 authorized_keys
    sudo service ssh restart
+```
+* 修改默认端口22 **修改默认端口来增加安全性**
+```
+   sudo vi /etc/ssh/sshd_config
+   修改配置项{
+     port： xxx <范围1~65535，切勿设置1024内的端口，顺便提一嘴，25是个被禁用的端口>
+     UseDNS: no
+     PermitRootLogin: no <禁用root登录>
+     PermitEmptyLogin: no
+     结尾追加 AllowUsers username <username是什么你应该清楚吧>
+   }
+```
+* 更新Ubuntu，以便后续配置防火墙
+```
+   sudo apt-get update && sudo apt-get upgrade <是否继续：你猜呢>
+```
+* 配置iptables防火墙 **防火墙是个需要反复更改的配置，每次有需要放行的端口都要更改防火墙，切记**
+```
+   sudo iptables -F <该命令为清空之前配置，想好了加个端口需不需要这步，嗯，就这样>
 ```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
