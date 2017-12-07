@@ -99,5 +99,34 @@ mongo environment
    sudo ufw status <看防火墙有没有成功被建立起来>
    没有： sudo ufw enable
 ```
+* 防火墙开机自启，避免每次手动启动
+```
+   sudo vi /etc/network/if-up.d/iptables
+   文件配置：{
+     #!/bin/sh <这句代表本配置文件为脚本>
+     iptables-restore /etc/iptables.up.rules
+   }
+   sudo chmod +x /etc/network/if-up.d/iptables <给脚本执行的权限>
+```
+* Fail2Ban
+```
+   sudo apt-get install fail2ban <安装Fail2Ban>
+   sudo vi /etc/fail2ban/jail.conf
+   更改配置文件：{
+     bantime: xxx <可以设置的大一些，如3600>
+			  destemail: xxx <设置为自己的邮箱>
+			  action = %(action_mv)s
+			  ssh: {
+				  enabled = true
+				  port = ssh
+				  filter = sshd
+				  logpath = /var/log/auth.log
+				  maxretry = 6
+			  }
+   }
+   sudo service fail2ban status <查看fail2ban有没有运行>
+   sudo service fail2ban start <开启fail2ban>
+   sudo service fail2ban stop <停止fail2ban>
+```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
