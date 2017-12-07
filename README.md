@@ -142,5 +142,39 @@ mongo environment
    npm --registry=https://registry.npm.taobao.org install -g cnpm <安装淘宝镜像，特别提醒不是太慢请用npm>
    npm install pm2 webpack glup grunt-cli -g
 ```
+* pm2 将本地运行的项目跑在服务器上
+```
+   pm2 start file_name
+   pm2 list <列出当前这台服务器运行的服务>
+   pm2 show file_name <查看该文件详情信息>
+   pm2 logs <查看实时信息>
+```
+* Nginx 反向代理 负载均衡
+```
+   sudo apt-get update
+   sudo apt-get install nginx
+   cd /etc/nginx/
+   cd conf.d
+   sudo vi 域名.域名后缀(.com/.cn/...).自定义nginx端口号 <eg:baidu.com.9000>
+   配置文件: {
+     upstream 域名 {
+       server 127.0.0.1:自定义nginx端口号;
+     }
+
+    server {
+      listen 80;
+      server_name 公网IP;
+
+      location / {
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forward-For $proxy_add_x_forwarded_for;
+	proxy_set_header Host $http_host;
+	proxy_set_header X-Nginx-Proxy true;
+
+	proxy_pass http://ayijun;
+	proxy_redirect off;
+      }
+    }
+```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
