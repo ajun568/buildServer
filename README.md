@@ -68,32 +68,32 @@ mongo environment
    配置文件编写：{
      *filter
 
-			  -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT  <允许所有建立起来的链接>
+     -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT  <允许所有建立起来的链接>
 
-			  -A OUTPUT -j ACCEPT <允许所有出去的流量>
+     -A OUTPUT -j ACCEPT <允许所有出去的流量>
 
-			  -A INPUT -p tcp --dport 443 -j ACCEPT <允许HTTPS请求的连接>
-		  	-A INPUT -p tcp --dport 80 -j ACCEPT <允许80端口请求的连接>
+     -A INPUT -p tcp --dport 443 -j ACCEPT <允许HTTPS请求的连接>
+     -A INPUT -p tcp --dport 80 -j ACCEPT <允许80端口请求的连接>
 
-			  -A INPUT -p tcp -m state --state NEW --dport 上文设置的端口号(没改过为22) -j ACCEPT <只能从该端口登录，其他端口登录会被防火墙拦截>
+     -A INPUT -p tcp -m state --state NEW --dport 上文设置的端口号(没改过为22) -j ACCEPT <只能从该端口登录，其他端口登录会被防火墙拦截>
 
-			  -A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT <允许ping>
+     -A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT <允许ping>
 
-			  <mongoDB允许端口>
-			  -A INPUT -s 127.0.0.1 -p tcp --destination-port 27017 -m state --state NEW,ESTABLISHED -j ACCEPT
-			  -A OUTPUT -d 127.0.0.1 -p tcp --source-port 27017 -m state --state ESTABLISHED -j ACCEPT
+     <mongoDB允许端口>
+     -A INPUT -s 127.0.0.1 -p tcp --destination-port 27017 -m state --state NEW,ESTABLISHED -j ACCEPT
+     -A OUTPUT -d 127.0.0.1 -p tcp --source-port 27017 -m state --state ESTABLISHED -j ACCEPT
 
-			  -A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied:" --log-level 7 <记录被拒绝的请求>
+     -A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied:" --log-level 7 <记录被拒绝的请求>
 
-			  <对恶意访问的IP加以拦截>
-			  -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --set
-			  -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --update --seconds 60 --hitcount 150 -j DROP <如果某个IP在80端口在60s内发出了150次请求就拦截掉（60，150可更改）>
+     <对恶意访问的IP加以拦截>
+     -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --set
+     -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --update --seconds 60 --hitcount 150 -j DROP <如果某个IP在80端口在60s内发出了150次请求就拦截掉（60，150可更改）>
 
-			  <拒绝所有其他进到服务器的流量 注意后续引入新的接口/新的协议/新的数据库/外网/某个IP段要来加规则，切记>
-			  -A INPUT -j REJECT
-			  -A FORWARD -j REJECT
+     <拒绝所有其他进到服务器的流量 注意后续引入新的接口/新的协议/新的数据库/外网/某个IP段要来加规则，切记>
+     -A INPUT -j REJECT
+     -A FORWARD -j REJECT
 
-			  COMMIT
+     COMMIT
 ```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
