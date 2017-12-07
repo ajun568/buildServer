@@ -22,7 +22,7 @@ mongo environment
 ```
    打开git bash <本地git环境即可>
    mkdir .ssh
-   ssh-keygen -t rsa -b 4096 -C "email" <email:填自己的邮箱 -> 新手将几个问题直接回车跳过即可，有兴趣自行查看资料进行配置>
+   ssh-keygen -t rsa -b 4096 -C "email" <email:填自己的邮箱->新手将几个问题直接回车跳过即可，有兴趣自行查看资料进行配置>
    eval "$(ssh-agent -s)" <开启SSH代理>
    cd .ssh
    ssh-add ~/.ssh/id_rsa <添加专用密钥>
@@ -64,6 +64,36 @@ mongo environment
 * 配置iptables防火墙 **防火墙是个需要反复更改的配置，每次有需要放行的端口都要更改防火墙，切记**
 ```
    sudo iptables -F <该命令为清空之前配置，想好了加个端口需不需要这步，嗯，就这样>
+   sudo vi /etc/iptables.up.rules
+   配置文件编写：{
+     *filter
+
+			  -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT  <允许所有建立起来的链接>
+
+			  -A OUTPUT -j ACCEPT <允许所有出去的流量>
+
+			  -A INPUT -p tcp --dport 443 -j ACCEPT <允许HTTPS请求的连接>
+		  	-A INPUT -p tcp --dport 80 -j ACCEPT <允许80端口请求的连接>
+
+			  -A INPUT -p tcp -m state --state NEW --dport 上文设置的端口号(没改过为22) -j ACCEPT <只能从该端口登录，其他端口登录会被防火墙拦截>
+
+			  -A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT <允许ping>
+
+			  <mongoDB允许端口>
+			  -A INPUT -s 127.0.0.1 -p tcp --destination-port 27017 -m state --state NEW,ESTABLISHED -j ACCEPT
+			  -A OUTPUT -d 127.0.0.1 -p tcp --source-port 27017 -m state --state ESTABLISHED -j ACCEPT
+
+			  -A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied:" --log-level 7 <记录被拒绝的请求>
+
+			  <对恶意访问的IP加以拦截>
+			  -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --set
+			  -A INPUT -p tcp --dport 80 -i eth0 -m state --state NEW -m recent --update --seconds 60 --hitcount 150 -j DROP <如果某个IP在80端口在60s内发出了150次请求就拦截掉（60，150可更改）>
+
+			  <拒绝所有其他进到服务器的流量 注意后续引入新的接口/新的协议/新的数据库/外网/某个IP段要来加规则，切记>
+			  -A INPUT -j REJECT
+			  -A FORWARD -j REJECT
+
+			  COMMIT
 ```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
