@@ -19,13 +19,14 @@ mongo environment
 
    > ssh-agent: 对解密的私钥进行高速缓存
    > ssh-add:   将用户使用的私钥添加到高速缓存的用户列表中
-```
-打开git bash <本地git环境即可>
-mkdir .ssh
-ssh-keygen -t rsa -b 4096 -C "email" <email:填自己的邮箱 -> 新手将几个问题直接回车跳过即可，有兴趣自行查看资料进行配置>
-eval "$(ssh-agent -s)" <开启SSH代理>
-cd .ssh
-ssh-add ~/.ssh/id_rsa <添加专用密钥>
-```
+   ```
+   打开git bash <本地git环境即可>
+   mkdir .ssh
+   ssh-keygen -t rsa -b 4096 -C "email" <email:填自己的邮箱 -> 新手将几个问题直接回车跳过即可，有兴趣自行查看资料进行配置>
+   eval "$(ssh-agent -s)" <开启SSH代理>
+   cd .ssh
+   ssh-add ~/.ssh/id_rsa <添加专用密钥>
+   ```
+7. 这里是下一个标题
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
