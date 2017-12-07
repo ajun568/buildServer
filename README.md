@@ -128,5 +128,19 @@ mongo environment
    sudo service fail2ban start <开启fail2ban>
    sudo service fail2ban stop <停止fail2ban>
 ```
+* node环境搭建 **[nvm链接](https://github.com/creationix/nvm)**
+```
+   sudo apt-get update
+   sudo apt-get install vim openssl build-essential libssl-dev wget curl git
+   在nvm中找到wget粘贴
+   根据指示新开一个窗口执行后续操作
+   nvm install v8.9.1 <安装node.js稳定版>
+   nvm use v8.9.1 <用nvm指定版本>
+   nvm alias default v8.9.1 <默认让系统中的版本为该版本>
+   npm --registry=https://registry.npm.taobao.org install -g npm
+   echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+   npm --registry=https://registry.npm.taobao.org install -g cnpm <安装淘宝镜像，特别提醒不是太慢请用npm>
+   npm install pm2 webpack glup grunt-cli -g
+```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
