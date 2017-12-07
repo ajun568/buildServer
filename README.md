@@ -201,4 +201,5 @@ mongo environment
 ```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
-## 教程结束 致敬scott大神 scott大神让我对node充满了兴趣 [推荐scott大神写的一个手记](https://www.imooc.com/article/12703)
+## 教程结束 致敬scott大神 scott大神让我对node充满了兴趣 
+## [推荐scott大神写的一个手记](https://www.imooc.com/article/12703)
