@@ -177,7 +177,7 @@ mongo environment
 	proxy_set_header Host $http_host;
 	proxy_set_header X-Nginx-Proxy true;
 
-	proxy_pass http://ayijun;
+	proxy_pass http://域名;
 	proxy_redirect off;
       }
     }
