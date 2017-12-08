@@ -43,7 +43,7 @@ mongo environment
 ```
    vi authorized_keys <授权公钥>
    编辑 - >将获取的本地公钥右键自动粘贴到此 -> 退出保存
-   chmod 600 authorized_keys
+   chmod 600 authorized_keys <不懂600是什么的去看Linux的chmod>
    sudo service ssh restart
 ```
 * 修改默认端口22 **修改默认端口来增加安全性**
@@ -201,5 +201,4 @@ mongo environment
 ```
 ### [git basic command intriduce](https://github.com/ajun568/git_basic_command)
 ### [Linux basic command introduce](https://github.com/ajun568/linux_basic_command)
-## 教程结束 致敬scott大神 scott大神让我对node充满了兴趣 
-## [推荐scott大神写的一个手记](https://www.imooc.com/article/12703)
+## 教程结束 致敬scott大神
